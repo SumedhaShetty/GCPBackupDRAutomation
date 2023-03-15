@@ -1,6 +1,6 @@
 # AGMPowerLib
 
-A Powershell module that allows PowerShell users to issue complex API calls to Actifio Global Manager. This module contains what we call composite functions, these being complex combination of API endpoints.  
+A Powershell module that allows PowerShell users to issue complex API calls to Actifio Global Manager. This module contains composite functions, these being complex combination of API endpoints.  
 
 ### Table of Contents
 **[Prerequisites](#prerequisites)**<br>
