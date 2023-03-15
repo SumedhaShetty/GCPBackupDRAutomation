@@ -73,6 +73,7 @@ Function New-AGMLibGCPInstanceMultiMount ([string]$instancelist,[switch]$textout
     if ($recoverylist.srcid -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: srcid" ;return }
     if ($recoverylist.projectname -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: projectname" ;return }
     if ($recoverylist.machinetype -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: machinetype" ;return }
+    if ($recoverylist.disktype -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: disktype" ;return }
     if ($recoverylist.instancename -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: instancename" ;return }
     if ($recoverylist.nic0network -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: nic0network" ;return }
     if ($recoverylist.nic0subnet -eq $null) { Get-AGMErrorMessage -messagetoprint "The following mandatory column is missing: nic0subnet" ;return }
@@ -108,7 +109,7 @@ Function New-AGMLibGCPInstanceMultiMount ([string]$instancelist,[switch]$textout
         if ($AGMToken)
         {
             $recoverylist | ForEach-Object -parallel {
-                $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$_.srcid +' -zone ' +$_.zone +' -projectname ' +$_.projectname +' -machinetype ' +$_.machinetype +' -instancename ' +$_.instancename +' -nic0network "' +$_.nic0network +'" -nic0subnet "' +$_.nic0subnet +'"'
+                $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$_.srcid +' -zone ' +$_.zone +' -projectname ' +$_.projectname +' -machinetype ' +$_.machinetype+' -disktype ' +$_.disktype +' -instancename ' +$_.instancename +' -nic0network "' +$_.nic0network +'" -nic0subnet "' +$_.nic0subnet +'"'
                 if ($_.nic0hostproject) { $mountcommand = $mountcommand + ' -nic0hostproject "' +$_.nic0hostproject +'"' }
                 if ($_.appid) { $mountcommand = $mountcommand + ' -appid "' +$_.appid +'"' }
                 if ($_.appname) {  $mountcommand = $mountcommand + ' -appname "' +$_.appname +'"' }
@@ -145,7 +146,7 @@ Function New-AGMLibGCPInstanceMultiMount ([string]$instancelist,[switch]$textout
         else 
         {
             $recoverylist | ForEach-Object -parallel {
-                $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$_.srcid +' -zone ' +$_.zone +' -projectname ' +$_.projectname +' -machinetype ' +$_.machinetype +' -instancename ' +$_.instancename +' -nic0network "' +$_.nic0network +'" -nic0subnet "' +$_.nic0subnet +'"'
+                $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$_.srcid +' -zone ' +$_.zone +' -projectname ' +$_.projectname +' -machinetype ' +$_.machinetype +' -disktype ' +$_.disktype +' -instancename ' +$_.instancename +' -nic0network "' +$_.nic0network +'" -nic0subnet "' +$_.nic0subnet +'"'
                 if ($_.nic0hostproject) { $mountcommand = $mountcommand + ' -nic0hostproject "' +$_.nic0hostproject +'"' }
                 if ($_.appid) { $mountcommand = $mountcommand + ' -appid "' +$_.appid +'"' }
                 if ($_.appname) {  $mountcommand = $mountcommand + ' -appname "' +$_.appname +'"' }
@@ -185,7 +186,7 @@ Function New-AGMLibGCPInstanceMultiMount ([string]$instancelist,[switch]$textout
         foreach ($app in $recoverylist)
         {
         
-            $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$app.srcid +' -zone ' +$app.zone +' -projectname ' +$app.projectname +' -machinetype ' +$app.machinetype +' -instancename ' +$app.instancename +' -nic0network "' +$app.nic0network +'" -nic0subnet "' +$app.nic0subnet +'"'
+            $mountcommand = 'New-AGMLibGCPInstance -srcid ' +$app.srcid +' -zone ' +$app.zone +' -projectname ' +$app.projectname +' -machinetype ' +$app.machinetype +' -disktype ' +$app.disktype +' -instancename ' +$app.instancename +' -nic0network "' +$app.nic0network +'" -nic0subnet "' +$app.nic0subnet +'"'
             if ($app.nic0hostproject) { $mountcommand = $mountcommand + ' -nic0hostproject "' +$app.nic0hostproject +'"' }
             if ($app.appid) { $mountcommand = $mountcommand + ' -appid "' +$app.appid +'"' }
             if ($app.appname) {  $mountcommand = $mountcommand + ' -appname "' +$app.appname +'"' }
